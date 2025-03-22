@@ -5,16 +5,17 @@ edition = "2021"
 
 [dependencies]
 log = "0.4"
-env_logger = "0.10"
-rfd = "0.12"
-ashpd = "0.10"
-pipewire = "0.5"
-ffmpeg-next = "4.3"
+env_logger = "0.11.7"
+rfd = "0.15.3"
+ashpd = { version = "0.11.0", default-features = false, features = ["tokio"] }
+pipewire = "0.8.0"
+ffmpeg-next = "7.1.0"
 tokio = { version = "1.27", features = ["rt-multi-thread", "macros"] }
-eframe = "0.27"
-egui = "0.27"
+eframe = "0.31.1"
+egui = "0.31.1"
 anyhow = "1.0"
-bindgen = "0.51"
+bindgen = "0.71.1"
+
 
 [[bin]]
 name = "rustcord"
