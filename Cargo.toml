@@ -4,16 +4,17 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-scrap = "0.5.0"
-opencv = "0.94.3"
-gstreamer = "0.20"
-gstreamer-app = "0.20"
-image = "0.24"
+log = "0.4"
+env_logger = "0.10"
+rfd = "0.12"
+ashpd = "0.10"
+pipewire = "0.5"
+ffmpeg-next = "4.3"
+tokio = { version = "1.27", features = ["rt-multi-thread", "macros"] }
+eframe = "0.27"
+egui = "0.27"
 anyhow = "1.0"
-crossbeam = "0.8"
-eframe = "0.22"
-egui = "0.22"
-bytemuck_derive = "1.9.2"
+bindgen = "0.51"
 
 [[bin]]
 name = "rustcord"
