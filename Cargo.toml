@@ -1,0 +1,19 @@
+[package]
+name = "rustcord"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+scrap = "0.10"
+opencv = { version = "0.66", features = ["buildtime_bindgen"] }
+gstreamer = "0.20"
+gstreamer-app = "0.20"
+image = "0.24"
+anyhow = "1.0"
+crossbeam = "0.8"
+eframe = "0.22"
+egui = "0.22"
+
+[[bin]]
+name = "rustcord"
+path = "src/main.rs"
