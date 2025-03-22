@@ -7,7 +7,7 @@ edition = "2021"
 log = "0.4"
 env_logger = "0.11.7"
 rfd = "0.15.3"
-ashpd = { version = "0.11.0", default-features = false, features = ["tokio"] }
+smol = "2.0.2"
 pipewire = "0.8.0"
 ffmpeg-next = "7.1.0"
 tokio = { version = "1.27", features = ["rt-multi-thread", "macros"] }
