@@ -5,7 +5,7 @@ A lightweight and efficient screen recorder built using Rust, leveraging `ffmpeg
 ## Features
 - 🖥️ **Screen Recording**: Capture your desktop with high performance.
 - 🎥 **FFmpeg Integration**: Supports multiple video formats.
-- 🔊 **Audio Recording**: Record system audio using PipeWire.
+- 🔊 **Audio Recording**: Record system audio using PipeWire. Coming soon =)
 - ⚡ **Optimized Performance**: Low CPU and memory usage.
 
 ## Installation
