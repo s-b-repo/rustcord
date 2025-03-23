@@ -21,43 +21,43 @@ sudo apt install libgtk-4-dev libglib2.0-dev libgio-dev
 sudo pacman -S gtk4 glib2
 ```
 #### fedora
-sudo dnf install gtk4-devel glib2-devel gio-devel
+    sudo dnf install gtk4-devel glib2-devel gio-devel
 
 ## Building & Running
 
-cargo build
+    cargo build
 
 # Run the Project
 
-cargo run
+    cargo run
 
 # Build for Release
 
-cargo build --release
+    cargo build --release
 
 # Running the Binary from Anywhere
 
-sudo mv target/release/rustcord /usr/local/bin/
+    sudo mv target/release/rustcord /usr/local/bin/
 
 Now you can run it from anywhere:
 
-rustcord
+    rustcord
 
 #2. (Optional) Use Cargo's Bin Directory
 
 Alternatively, move it to Cargo's bin directory:
 
-mv target/release/rustcord ~/.cargo/bin/
+    mv target/release/rustcord ~/.cargo/bin/
 
 Ensure ~/.cargo/bin is in your PATH:
 
-echo 'export PATH="$HOME/.cargo/bin:$PATH"' >> ~/.bashrc
+    echo 'export PATH="$HOME/.cargo/bin:$PATH"' >> ~/.bashrc
 
-source ~/.bashrc
+    source ~/.bashrc
 
 Now, you can run:
 
-rustcord
+    rustcord
 
 ## Contributing
 1. Fork the repo 🍴
