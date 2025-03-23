@@ -12,7 +12,7 @@ use std::rc::Rc;
 use glib::clone;
 use crate::devices::{list_camera_devices, list_screens};
 use crate::recording::{start_recording, stop_recording};
-use gtk::{ApplicationWindow, FileChooserAction, FileChooserNative};
+
 
 pub fn build_ui(app: &Application) {
     // Create the main application window.
@@ -98,26 +98,32 @@ let chosen_folder_label = Label::new(Some("Not Selected"));
 let select_folder_button = Button::with_label("Select Folder");
 
 // When clicked, open a folder chooser dialog.
-select_folder_button.connect_clicked(clone!(@weak window, @weak chosen_folder_label => move |_| {
-    let folder_chooser = FileChooserNative::new(
-        Some("Select Output Folder"),
-                                                Some(&window),
-                                                FileChooserAction::SelectFolder,
-                                                Some("Select"),
-                                                Some("Cancel"),
-    );
-    folder_chooser.connect_response(clone!(@weak chosen_folder_label => move |dialog, response| {
-        if response == ResponseType::Accept {
-            if let Some(folder) = dialog.file() {
-                if let Some(path) = folder.path() {
-                    chosen_folder_label.set_text(path.to_str().unwrap_or("Invalid Path"));
+select_folder_button.connect_clicked(glib::clone! {
+    #[weak window]
+    #[weak chosen_folder_label]
+    move |_| {
+        let folder_chooser = FileChooserNative::new(
+            Some("Select Output Folder"),
+            Some(&window),
+            FileChooserAction::SelectFolder,
+            Some("Select"),
+            Some("Cancel"),
+        );
+        folder_chooser.connect_response(clone!(@weak chosen_folder_label => move |dialog, response| {
+            if response == ResponseType::Accept {
+                if let Some(folder) = dialog.file() {
+                    if let Some(path) = folder.path() {
+                        chosen_folder_label.set_text(path.to_str().unwrap_or("Invalid Path"));
+                    }
                 }
             }
-        }
-        dialog.close();
-    }));
-    folder_chooser.show();
-}));
+            // Hide the dialog rather than calling close()
+            dialog.hide();
+        }));
+        folder_chooser.show();
+    }
+});
+
 
 let file_name_label = Label::new(Some("Output File Name:"));
 let file_name_entry = Entry::new();
