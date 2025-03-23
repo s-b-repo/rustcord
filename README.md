@@ -59,6 +59,8 @@ Now, you can run:
 
     rustcord
 
+![Description](https://raw.githubusercontent.com/s-b-repo/rustcord/main/asdasd.png)
+
 ## Contributing
 1. Fork the repo 🍴
 2. Create a new branch `git checkout -b feature-name`
