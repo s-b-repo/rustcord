@@ -12,38 +12,52 @@ A lightweight and efficient screen recorder built using Rust, leveraging `pipewi
 ### Prerequisites
 Ensure you have the following dependencies installed:
 - Rust (stable) → Install via [rustup](https://rustup.rs/)
-- `ffmpeg`
-- `pipewire`
-- `libclang`
-
 #### Ubuntu/Debian
-```sh
-sudo apt update && sudo apt install -y ffmpeg libpipewire-0.3-dev clang
+```
+sudo apt install libgtk-4-dev libglib2.0-dev libgio-dev
 ```
 #### Arch Linux
-```sh
-sudo pacman -S ffmpeg pipewire clang
 ```
-#### MacOS
-```sh
-brew install ffmpeg pipewire llvm
+sudo pacman -S gtk4 glib2
 ```
+#### fedora
+sudo dnf install gtk4-devel glib2-devel gio-devel
 
-## Usage
-Run the recorder with default settings:
-```sh
-target/release/rust-screen-recorder
-```
-For custom settings:
-```sh
-target/release/rust-screen-recorder --output video.mp4 --fps 30
-```
+## Building & Running
 
-## Troubleshooting
-If you encounter a `clang-sys` conflict, try:
-```sh
-cargo update -p clang-sys --precise 0.29.0
-```
+cargo build
+
+# Run the Project
+
+cargo run
+
+# Build for Release
+
+cargo build --release
+
+# Running the Binary from Anywhere
+
+sudo mv target/release/rustcord /usr/local/bin/
+
+Now you can run it from anywhere:
+
+rustcord
+
+#2. (Optional) Use Cargo's Bin Directory
+
+Alternatively, move it to Cargo's bin directory:
+
+mv target/release/rustcord ~/.cargo/bin/
+
+Ensure ~/.cargo/bin is in your PATH:
+
+echo 'export PATH="$HOME/.cargo/bin:$PATH"' >> ~/.bashrc
+
+source ~/.bashrc
+
+Now, you can run:
+
+rustcord
 
 ## Contributing
 1. Fork the repo 🍴
