@@ -9,10 +9,10 @@ use std::cell::RefCell;
 #[allow(unused_imports)]
 use std::path::Path;
 use std::rc::Rc;
+#[allow(unused_imports)]
 use glib::clone;
 use crate::devices::{list_camera_devices, list_screens};
 use crate::recording::{start_recording, stop_recording};
-
 
 pub fn build_ui(app: &Application) {
     // Create the main application window.
@@ -98,32 +98,42 @@ let chosen_folder_label = Label::new(Some("Not Selected"));
 let select_folder_button = Button::with_label("Select Folder");
 
 // When clicked, open a folder chooser dialog.
-select_folder_button.connect_clicked(glib::clone! {
-    #[weak window]
-    #[weak chosen_folder_label]
-    move |_| {
+let window_ref = gtk4::glib::WeakRef::new();
+window_ref.set(Some(&window)); // Wrap window in Some(&...)
+
+let label_ref = gtk4::glib::WeakRef::new();
+label_ref.set(Some(&chosen_folder_label)); // Wrap label in Some(&...)
+
+select_folder_button.connect_clicked(move |_| {
+    // Upgrade the weak reference for the window.
+    if let Some(window) = window_ref.upgrade() {
+        // Upcast the ApplicationWindow to a gtk4::Window for the FileChooserNative.
         let folder_chooser = FileChooserNative::new(
             Some("Select Output Folder"),
-            Some(&window),
-            FileChooserAction::SelectFolder,
-            Some("Select"),
-            Some("Cancel"),
+                                                    Some(window.upcast_ref::<gtk4::Window>()), // Explicit type specified here
+                                                    FileChooserAction::SelectFolder,
+                                                    Some("Select"),
+                                                    Some("Cancel"),
         );
-        folder_chooser.connect_response(clone!(@weak chosen_folder_label => move |dialog, response| {
+        // Clone the weak reference for use inside the response closure.
+        let label_ref_clone = label_ref.clone();
+        folder_chooser.connect_response(move |dialog, response| {
             if response == ResponseType::Accept {
                 if let Some(folder) = dialog.file() {
                     if let Some(path) = folder.path() {
-                        chosen_folder_label.set_text(path.to_str().unwrap_or("Invalid Path"));
+                        // Upgrade the weak reference for the label.
+                        if let Some(label) = label_ref_clone.upgrade() {
+                            label.set_text(path.to_str().unwrap_or("Invalid Path"));
+                        }
                     }
                 }
             }
-            // Hide the dialog rather than calling close()
             dialog.hide();
-        }));
+        });
+
         folder_chooser.show();
     }
 });
-
 
 let file_name_label = Label::new(Some("Output File Name:"));
 let file_name_entry = Entry::new();
@@ -172,29 +182,26 @@ preview_area.put(&camera_preview, 10.0, 10.0);
 // Add drag gesture to the camera preview widget.
 // Create the GestureDrag
 let drag = GestureDrag::new(); // No argument needed
-// Attach the gesture to the widget
-camera_preview.add_controller(&drag);
+// Attach the gesture to the widget (cloned to avoid moving the original)
+camera_preview.add_controller(drag.clone());
 // Store the initial offset.
 let initial_offset = Rc::new(RefCell::new((10.0, 10.0)));
-// Closure to update the widget's position.
 {
     let preview_area_clone = preview_area.clone();
-    let initial_offset = initial_offset.clone();
-    drag.connect_drag_update(move |_gesture, offset_x, offset_y| {
+    let initial_offset_first = initial_offset.clone();
+    drag.connect_drag_update(move |_gesture,_offset_x, __offset_y| {
         // Calculate new position based on the drag offset.
-        let (init_x, init_y) = *initial_offset.borrow();
-        let new_x = init_x + offset_x;
-        let new_y = init_y + offset_y;
+        let (_init_x, _init_y) = *initial_offset_first.borrow();
+        let new_x = _init_x +_offset_x;
+        let new_y = _init_y + __offset_y;
         preview_area_clone.move_(&camera_preview, new_x as f64, new_y as f64);
-
     });
-    // On drag end, update the initial offset.
-    let initial_offset = initial_offset.clone();
-    drag.connect_drag_end(move |_gesture, offset_x, offset_y| {
-        let (init_x, init_y) = *initial_offset.borrow();
-        let new_x = init_x + offset_x;
-        let new_y = init_y + offset_y;
-        *initial_offset.borrow_mut() = (new_x, new_y);
+    let drag_clone = drag.clone();
+    let initial_offset_second = initial_offset.clone();
+    drag_clone.connect_drag_update(move |_gesture,_offset_x, __offset_y| {
+        // Use the clone inside the closure.
+        let (_init_x, _init_y) = *initial_offset_second.borrow();
+        // ... update logic here ...
     });
 }
 
