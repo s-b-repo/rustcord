@@ -1,12 +1,6 @@
 # Rust Screen Recorder
 
 A lightweight and efficient screen recorder built using Rust, leveraging `ffmpeg` for high-quality video capture.
-## To Do list
-- fix seg fault for selecting out video out put
--
--
--
--
 
 ## Features
 - 🖥️ **Screen Recording**: Capture your desktop with high performance.
