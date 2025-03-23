@@ -2,6 +2,14 @@
 
 A lightweight and efficient screen recorder built using Rust, leveraging `ffmpeg` for high-quality video capture.
 
+## To Do list
+- fix seg fault for selecting out video out put
+-
+-
+-
+-
+
+
 ## Features
 - 🖥️ **Screen Recording**: Capture your desktop with high performance.
 - 🎥 **FFmpeg Integration**: Supports multiple video formats.
@@ -9,6 +17,7 @@ A lightweight and efficient screen recorder built using Rust, leveraging `ffmpeg
 - ⚡ **Optimized Performance**: Low CPU and memory usage.
 
 ## Installation
+
 ### Prerequisites
 Ensure you have the following dependencies installed:
 - Rust (stable) → Install via [rustup](https://rustup.rs/)
