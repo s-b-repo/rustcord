@@ -4,10 +4,25 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-gtk4 = "0.6"
-glib = "0.14"
-gio = "0.14"
+# GTK4 and related crates
+gtk4 = "0.9"
+glib = "0.20"
+gio = "0.20"
+gdk4 = "0.9"
+gdk-pixbuf = "0.20"
 
-[[bin]]
-name = "rustcord"
-path = "src/main.rs"
+# GStreamer crates (matching versions to avoid link conflicts)
+gstreamer = "0.23"
+gstreamer-video = "0.23"
+gstreamer-app = "0.23"
+gst-plugin-gtk4 = "0.13.5"
+
+# Portal support via ASHPD (XDG Desktop Portals)
+ashpd = { version = "0.11", features = ["gtk4"] }
+
+# Utility and other crates
+anyhow = "1.0"
+futures = "0.3"
+libc = "0.2"
+regex = "1"
+lazy_static = "1.4"
