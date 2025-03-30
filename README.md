@@ -1,5 +1,5 @@
 # Rust Screen Recorder
-![Description](https://raw.githubusercontent.com/s-b-repo/rustcord/main/asdasd.png)
+![Description](https://raw.github/s-b-repo/rustcord/main/asdasd.png)
 A lightweight and efficient screen recorder built using Rust, leveraging `ffmpeg` for high-quality video capture.
 
 ## To Do list
