@@ -1,5 +1,5 @@
 # Rust Screen Recorder
-
+![Description](https://raw.githubusercontent.com/s-b-repo/rustcord/main/asdasd.png)
 A lightweight and efficient screen recorder built using Rust, leveraging `ffmpeg` for high-quality video capture.
 
 ## To Do list
@@ -67,8 +67,6 @@ Ensure ~/.cargo/bin is in your PATH:
 Now, you can run:
 
     rustcord
-
-![Description](https://raw.githubusercontent.com/s-b-repo/rustcord/main/asdasd.png)
 
 ## Contributing
 1. Fork the repo 🍴
