@@ -2,11 +2,24 @@
 name = "rustcord"
 version = "0.1.0"
 edition = "2021"
+[package]
+name = "waycord_recorder"
+version = "0.1.0"
+edition = "2021"
 
 [dependencies]
-gtk4 = "0.6"
-glib = "0.14"
-gio = "0.14"
+gtk4  = "0.7"
+glib = "0.18"
+libadwaita = "0.5.1"
+gstreamer = "0.22"
+gstreamer-video = "0.22"
+gstreamer-pbutils = "0.22"
+pipewire = "0.8.0"
+thiserror = "1.0"
+anyhow = "1.0"
+log = "0.4"
+env_logger = "0.11"
+
 
 [[bin]]
 name = "rustcord"
